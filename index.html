@@ -13,7 +13,7 @@
     var groundWidth;
     var ballRadius;
     var gravity;
-    var defaultGravity = 2;
+    var defaultGravity = 1;
     var ballVelocityY = 0;
     var ballValocityX = 0;
     var ballAccX = 0;
@@ -72,7 +72,7 @@
       if(ballY + ballRadius >= groundY){
         gravity = 0;
       }else{
-        graviry = defaultGravity;
+        gravity = defaultGravity;
       }
 
       ballVelocityY += gravity;
@@ -106,7 +106,7 @@
         && coorY > (ballY - ballRadius) && coorY < (ballY + ballRadius)){
 
         ballValocityX += (ballX - coorX)/20;
-        ballVelocityY += (ballY - coorY)/20; 
+        ballVelocityY += (ballY - coorY)/10; 
 
       }
     }
