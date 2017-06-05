@@ -2,6 +2,7 @@
   <canvas id = "canvas" width = "800" height = "600">
   </canvas>
   <script>
+
     var canvas;
     var ctx;
     var ballX;
@@ -11,15 +12,33 @@
     var groundHeight;
     var groundWidth;
     var ballRadius;
-    window.onload = function() {
-      canvas = document.getElementById("canvas");
-      ctx = canvas.getContext("2d");
-      draw();
+    var gravity;
+    var defaultGravity = 10;
+    var ballVelocityY = 0;
+    var ballValocityX = 0;
+    var ballAccX = 0;
+    var ballAccY = 0;
+    var gameOn = 0;
+    var fps = 30;
+
+    function calculateMousePos(evt) {
+
+      var rect = canvas.getBoundingClientRect();
+      var root = document.documentElement;
+      var mouseX = evt.clientX - rect.left - root.scrollLeft;
+      var mouseY = evt.clientY - rect.top - root.scrollTop;
+      return {
+          x:mouseX,
+          y:mouseY 
+      }
 
     }
-    
-    function draw() {
-      drawRect(0,0,canvas.width,canvas.height,'black');
+
+    window.onload = function() {
+
+      canvas = document.getElementById("canvas");
+      ctx = canvas.getContext("2d");
+
       groundX = 0;
       groundY = canvas.height - 50; 
       groundHeight = 30;
@@ -27,11 +46,44 @@
       ballX = canvas.width/2;
       ballRadius = 50;
       ballY = groundY - ballRadius;
-     
 
+      drawRect(0,0,canvas.width,canvas.height,'black');
+
+      canvas.addEventListener("click", function(evt){
+                    var mouse = calculateMousePos(evt);
+                    addAccelaration(mouse.x , mouse.y);
+                    gameOn = 1;})
+
+      setInterval(function() {
+                move();
+                draw();
+      }, 1000/fps);
+
+    }
+    //draws the things, use variables only so that 
+    function draw() {
+      drawRect(0,0,canvas.width,canvas.height,'black');
       drawRect(groundX,groundY,groundWidth,groundHeight,'white');
       drawBall(ballX, ballY, ballRadius, 'white');
       
+    }
+
+    function move() {
+      if(ballY + ballRadius == groundY){
+        gravity = 0;
+      }else{
+        graviry = defaultGravity;
+      }
+      if(gameOn == 1){
+        if(ballY = groundY - ballRadius){
+          ballVelocityY = -ballVelocityY;
+        }
+      }
+
+    ballVelocityY += gravity;
+    ballY += ballVelocityY;
+    ballX += ballValocityX;
+
     }
     
     function drawBall(X, Y, radius, color) {
@@ -44,6 +96,18 @@
     function drawRect(leftX,topY, width,height, color) {
       ctx.fillStyle = color;
       ctx.fillRect(leftX,topY, width,height);
+    }
+
+    
+
+    function addAccelaration(coorX, coorY) {
+      if(coorX > (ballX - ballRadius) && coorX < ballX + (ballRadius) 
+        && coorY > (ballY - ballRadius) && coorY < (ballY + ballRadius)){
+
+        ballValocityX += ballX - coorX;
+        ballVelocityY += ballY - coorY; 
+
+      }
     }
     
   </script>
