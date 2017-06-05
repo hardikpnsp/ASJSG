@@ -13,7 +13,7 @@
     var groundWidth;
     var ballRadius;
     var gravity;
-    var defaultGravity = 10;
+    var defaultGravity = 2;
     var ballVelocityY = 0;
     var ballValocityX = 0;
     var ballAccX = 0;
@@ -69,20 +69,21 @@
     }
 
     function move() {
-      if(ballY + ballRadius == groundY){
+      if(ballY + ballRadius >= groundY){
         gravity = 0;
       }else{
         graviry = defaultGravity;
       }
+
+      ballVelocityY += gravity;
+      ballY += ballVelocityY;
+      ballX += ballValocityX;
+
       if(gameOn == 1){
-        if(ballY = groundY - ballRadius){
+        if(ballY >= groundY - ballRadius){
           ballVelocityY = -ballVelocityY;
         }
       }
-
-    ballVelocityY += gravity;
-    ballY += ballVelocityY;
-    ballX += ballValocityX;
 
     }
     
@@ -104,8 +105,8 @@
       if(coorX > (ballX - ballRadius) && coorX < ballX + (ballRadius) 
         && coorY > (ballY - ballRadius) && coorY < (ballY + ballRadius)){
 
-        ballValocityX += ballX - coorX;
-        ballVelocityY += ballY - coorY; 
+        ballValocityX += (ballX - coorX)/20;
+        ballVelocityY += (ballY - coorY)/20; 
 
       }
     }
