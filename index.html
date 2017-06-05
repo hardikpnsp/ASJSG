@@ -2,9 +2,49 @@
   <canvas id = "canvas" width = "800" height = "600">
   </canvas>
   <script>
-    var canvas = document.getElementById("canvas");
-    var ctx = canvas.getContext("2d");
-    ctx.fillStyle = "#FF0000";
-    ctx.fillRect(0, 0, 800, 600);
+    var canvas;
+    var ctx;
+    var ballX;
+    var ballY;
+    var groundX;
+    var groundY;
+    var groundHeight;
+    var groundWidth;
+    var ballRadius;
+    window.onload = function() {
+      canvas = document.getElementById("canvas");
+      ctx = canvas.getContext("2d");
+      draw();
+
+    }
+    
+    function draw() {
+      drawRect(0,0,canvas.width,canvas.height,'black');
+      groundX = 0;
+      groundY = canvas.height - 50; 
+      groundHeight = 30;
+      groundWidth = canvas.width;
+      ballX = canvas.width/2;
+      ballRadius = 50;
+      ballY = groundY - ballRadius;
+     
+
+      drawRect(groundX,groundY,groundWidth,groundHeight,'white');
+      drawBall(ballX, ballY, ballRadius, 'white');
+      
+    }
+    
+    function drawBall(X, Y, radius, color) {
+	    ctx.fillStyle = color;
+	    ctx.beginPath();
+	    ctx.arc(X, Y, radius, 0,Math.PI*2,true);
+	    ctx.fill();
+    }
+
+    function drawRect(leftX,topY, width,height, color) {
+      ctx.fillStyle = color;
+      ctx.fillRect(leftX,topY, width,height);
+    }
+    
   </script>
 </html>
