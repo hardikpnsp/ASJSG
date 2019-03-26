@@ -8,3 +8,5 @@ Its a physics/gravity simulation kind of thing, my first project after I learned
 # How do the mechanics work ? 
 
 Basically, when you click on the ball, the force vector's direction will be from the point where you clicked on the ball to the center of the ball and the amount of the force will depend on how far from the center of the ball you are clicking. 
+
+![Ball bounce](https://github.com/hardikpnsp/ASJSG/blob/master/gifs/asjsg.gif)
